@@ -1,0 +1,11 @@
+{
+	"configurations": [
+		{
+			"type": "node-terminal",
+			"name": "Debug nest",
+			"request": "launch",
+			"command": "pnpm run start:dev",
+			"cwd": "${workspaceFolder}"
+		}
+	]
+}
