@@ -1,0 +1,12 @@
+
+@port = {{$dotenv PORT}}
+@URL = http://localhost:{{port}}/api
+
+### All-users
+GET {{URL}}/user
+
+### No-public route
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4N2UyNWE0LWZjNTMtNDk1Yi04Y2RiLTk2NWNkY2Q4MDQyMSIsImlhdCI6MTY3Nzg4Mjk0MiwiZXhwIjoxNjc3ODgzMDAyfQ.pLLEkxNyRd0oc0Pz6sTE3g6uBas2tICLZPNahXeI0Rg
+
+GET {{URL}}/user/no-public
+Authorization: Bearer {{TOKEN}}
