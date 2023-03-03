@@ -2,6 +2,9 @@ import env from '~/utils/config'
 import { join } from 'path'
 import { DataSource, DataSourceOptions } from 'typeorm'
 import { cwd } from 'process'
+import { UserEntity } from '~/modules/user/entities/user.entity'
+
+console.log(join(cwd() + '/build/**/*.entity.{ts,js}'))
 
 export const dataSourceOptions: DataSourceOptions = {
 	username: env.DATABASE_USERNAME,
