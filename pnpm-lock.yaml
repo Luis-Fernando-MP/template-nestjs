@@ -10,6 +10,7 @@ specifiers:
   '@nestjs/core': 9.0.0
   '@nestjs/graphql': 10.2.0
   '@nestjs/jwt': 10.0.2
+  '@nestjs/mapped-types': 1.2.2
   '@nestjs/passport': 9.0.3
   '@nestjs/platform-express': 9.0.0
   '@nestjs/schematics': 9.0.0
@@ -59,6 +60,7 @@ dependencies:
   '@nestjs/core': 9.0.0_qstxb52zgkbbeu6bdedvtfp75m
   '@nestjs/graphql': 10.2.0_wzjlgw7fjozvl4yw25hjjnbpom
   '@nestjs/jwt': 10.0.2_@nestjs+common@9.0.0
+  '@nestjs/mapped-types': 1.2.2_v62yizhvvgv4ykxluj464v3hsq
   '@nestjs/passport': 9.0.3_zftsu2v7lislm6eursouhgm4eq
   '@nestjs/platform-express': 9.0.0_alqbdw5ypfcue4vycgic65q76y
   '@nestjs/typeorm': 9.0.1_lqdi6uujoupi2gto2cyyrrqogy

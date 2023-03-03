@@ -2,9 +2,6 @@ import env from '~/utils/config'
 import { join } from 'path'
 import { DataSource, DataSourceOptions } from 'typeorm'
 import { cwd } from 'process'
-import { UserEntity } from '~/modules/user/entities/user.entity'
-
-console.log(join(cwd() + '/build/**/*.entity.{ts,js}'))
 
 export const dataSourceOptions: DataSourceOptions = {
 	username: env.DATABASE_USERNAME,
@@ -15,7 +12,7 @@ export const dataSourceOptions: DataSourceOptions = {
 	migrationsTableName: '__migrations',
 	migrationsRun: true,
 	migrations: [join(cwd(), './migrations/*{.ts,.js}')],
-	logging: ['error', 'migration', 'log', 'warn', 'query'],
+	logging: ['error', 'migration', 'log', 'warn'],
 	logger: 'advanced-console',
 	host: env.DATABASE_HOST,
 	entities: [join(__dirname + '/../**/*.entity{.ts,.js}')],

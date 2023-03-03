@@ -1,0 +1,42 @@
+
+@port = {{$dotenv PORT}}
+@URL = http://localhost:{{port}}/api
+
+### Sing In
+POST {{URL}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@test.com",
+  "password": "Aa1#User"
+}
+
+### Sing Up
+POST {{URL}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "user@test.com",
+  "password": "Aa1#User",
+  "name": "User Test"
+}
+
+
+### refresh token
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4N2UyNWE0LWZjNTMtNDk1Yi04Y2RiLTk2NWNkY2Q4MDQyMSIsImlhdCI6MTY3Nzg4MjkzMSwiZXhwIjoxNjc3ODgyOTkxfQ.EK3xHLT1W97dQyqB2atJCFncAuDsUxbFx_dAipbocCs
+
+POST {{URL}}/auth/refresh
+Content-Type: application/json
+
+{
+  "token": "{{TOKEN}}"
+}
+
+###
+POST {{URL}}/auth/logout
+Content-Type: application/json
+
+{
+  "token": "{{TOKEN}}"
+}
+

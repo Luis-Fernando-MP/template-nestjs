@@ -1,11 +1,10 @@
-import { hashSync } from 'bcryptjs'
 import { faker } from '@faker-js/faker/locale/es'
 import { IUserEntity } from '~/modules/user/entities/user.entity'
 
 const generateUser = (): IUserEntity => {
 	const name = faker.name.firstName()
-	const email = faker.internet.email()
-	const password = hashSync(name)
+	const email = faker.internet.email(name)
+	const password = `Aa1#${name}`
 	return { name, email, password }
 }
 
