@@ -1,3 +1,4 @@
+import TokenEntity from '~/modules/auth/entities/token.entity'
 import {
 	BaseEntity,
 	BeforeInsert,
@@ -5,6 +6,7 @@ import {
 	Column,
 	CreateDateColumn,
 	Entity,
+	OneToOne,
 	PrimaryColumn,
 	UpdateDateColumn
 } from 'typeorm'
@@ -15,6 +17,9 @@ import { v4 as uuid } from 'uuid'
 class UserEntity extends BaseEntity {
 	@PrimaryColumn('varchar', { name: 'user_id' })
 	id?: string
+
+	@OneToOne(() => TokenEntity, token => token.user)
+	token?: string
 
 	@Column({ type: 'varchar', length: 150, unique: true, nullable: false })
 	email: string

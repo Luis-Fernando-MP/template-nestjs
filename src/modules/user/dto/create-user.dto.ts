@@ -1,7 +1,7 @@
-import { IsEmail, IsNotEmpty, Length, Matches, MaxLength } from 'class-validator'
 import PATTERNS from './patterns'
+import { IsEmail, IsNotEmpty, Length, Matches, MaxLength } from 'class-validator'
 
-export class CreateUserDto {
+class CreateUserDto {
 	@IsEmail()
 	@IsNotEmpty()
 	@MaxLength(150)
@@ -17,3 +17,5 @@ export class CreateUserDto {
 	@Matches(PATTERNS.validateString.pattern, { message: PATTERNS.validateString.msg('name') })
 	name: string
 }
+
+export default CreateUserDto
