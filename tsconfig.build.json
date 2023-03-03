@@ -1,11 +1,12 @@
 {
-  "extends": "./tsconfig.json",
-  "exclude": [
-    "node_modules",
-    "test",
-    "dist",
-    "**/*spec.ts",
-    "./migrations",
-    "./rest"
-  ]
+	"extends": "./tsconfig.json",
+	"exclude": [
+		"node_modules",
+		"test",
+		"dist",
+		"**/*spec.ts",
+		"./migrations",
+		"./rest",
+		"./src/database/seeders"
+	]
 }
