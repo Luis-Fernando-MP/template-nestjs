@@ -3,7 +3,9 @@ import TokenEntity from './entities/token.entity'
 import RegisterAuthDto from './dto/registerAuth.dto'
 import LoginAuthDto from './dto/loginAuth.dto'
 import ITokenPayload from './types/payload.type'
+import IOauthPayload from './types/oauthPayload.type'
 import geTokenAuthDto from './dto/geTokenAuth.dto'
+import { UserEntity } from '../user/entities/user.entity'
 import { Repository } from 'typeorm'
 import { JwtService } from '@nestjs/jwt'
 import { InjectRepository } from '@nestjs/typeorm'
@@ -14,6 +16,7 @@ import { BadRequestException, Injectable } from '@nestjs/common'
 export class AuthService {
 	constructor(
 		@InjectRepository(TokenEntity) private readonly tokenRepository: Repository<TokenEntity>,
+		@InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
 		private readonly userService: UserService,
 		private readonly jwtService: JwtService
 	) {}
@@ -35,6 +38,24 @@ export class AuthService {
 		const createToken = this.tokenRepository.create({ token, user: userExist })
 		const saveToken = await this.tokenRepository.save(createToken)
 		if (!saveToken) throw new HttpException('fail to save token', HttpStatus.BAD_REQUEST)
+		return { token }
+	}
+
+	public async loginOauth({ email, name, provider }: IOauthPayload) {
+		let currentUser = await this.userRepository.findOneBy({ email })
+		if (currentUser) {
+			const userHasToken = await this.tokenRepository.findOneBy({ user: { id: currentUser.id } })
+			if (userHasToken) await this.tokenRepository.delete(userHasToken.id)
+		} else {
+			const newUser = this.userRepository.create({ email, name, provider })
+			const isUserCreated = await this.userRepository.save(newUser)
+			if (!isUserCreated) throw new BadRequestException('Failed to create user')
+			currentUser = isUserCreated
+		}
+		const token = await this.jwtService.signAsync({ id: currentUser.id })
+		const createToken = this.tokenRepository.create({ token, user: currentUser })
+		const saveToken = await this.tokenRepository.save(createToken)
+		if (!saveToken) throw new BadRequestException('fail to generate token')
 		return { token }
 	}
 
