@@ -1,5 +1,6 @@
 import env from './utils/config'
 import AppModule from './app.module'
+import * as cookieParser from 'cookie-parser'
 import { NestFactory } from '@nestjs/core'
 import { Logger, ValidationPipe } from '@nestjs/common'
 
@@ -14,6 +15,7 @@ async function bootstrap() {
 			transform: true
 		})
 	)
+	app.use(cookieParser(env.COOKIE_SECRET))
 	Logger.log(`🚀 server is running on port http://localhost:${env.PORT}/api`)
 	await app.listen(env.PORT)
 }

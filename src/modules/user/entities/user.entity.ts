@@ -10,8 +10,9 @@ import {
 	PrimaryColumn,
 	UpdateDateColumn
 } from 'typeorm'
-import { hash } from 'bcryptjs'
+import { hash, genSalt } from 'bcryptjs'
 import { v4 as uuid } from 'uuid'
+import strategies from '~/modules/auth/types/strategies.enum'
 
 @Entity('users')
 class UserEntity extends BaseEntity {
@@ -25,10 +26,13 @@ class UserEntity extends BaseEntity {
 	email: string
 
 	@Column({ type: 'varchar', nullable: false, length: 150, select: false })
-	password: string
+	password?: string
 
 	@Column({ type: 'varchar', nullable: false, length: 100, unique: true })
 	name: string
+
+	@Column({ type: 'enum', enum: strategies, default: strategies.JWT })
+	provider?: string
 
 	@CreateDateColumn({
 		type: 'timestamp',
@@ -48,7 +52,10 @@ class UserEntity extends BaseEntity {
 	@BeforeInsert()
 	@BeforeUpdate()
 	private async hashPassword() {
-		if (this.password) this.password = await hash(this.password, 10)
+		if (this.password) {
+			const salt = await genSalt(10)
+			this.password = await hash(this.password, salt)
+		}
 	}
 
 	@BeforeInsert()

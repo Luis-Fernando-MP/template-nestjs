@@ -6,7 +6,8 @@
 GET {{URL}}/user
 
 ### No-public route
-@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4N2UyNWE0LWZjNTMtNDk1Yi04Y2RiLTk2NWNkY2Q4MDQyMSIsImlhdCI6MTY3Nzg4Mjk0MiwiZXhwIjoxNjc3ODgzMDAyfQ.pLLEkxNyRd0oc0Pz6sTE3g6uBas2tICLZPNahXeI0Rg
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZkZWE2MGNiLTc2NzYtNDAzYS05MDE1LTIyNjY0ODgxYjg1YSIsImlhdCI6MTY3Nzk5ODcyOSwiZXhwIjoxNjc4MDAyMzI5fQ.x3tycJmNH3AeWnnISQSNpW0yauGs0tRIBjvbvOaJhdM
 
 GET {{URL}}/user/no-public
-Authorization: Bearer {{TOKEN}}
+# Authorization: Bearer {{TOKEN}}
+Cookie: Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZkZWE2MGNiLTc2NzYtNDAzYS05MDE1LTIyNjY0ODgxYjg1YSIsImlhdCI6MTY3ODAwMTg0MSwiZXhwIjoxNjc4MDAxOTAxfQ.lluTJ-i0fI1vOdvC6IVFmXbVVkv2q7eMTMSOyYGgCLo; Max-Age=60; Path=/; Expires=Sun, 05 Mar 2023 07:38:21 GMT; HttpOnly; Secure; SameSite=Strict

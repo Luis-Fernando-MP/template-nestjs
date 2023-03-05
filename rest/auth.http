@@ -23,7 +23,7 @@ Content-Type: application/json
 
 
 ### refresh token
-@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4N2UyNWE0LWZjNTMtNDk1Yi04Y2RiLTk2NWNkY2Q4MDQyMSIsImlhdCI6MTY3Nzg4MjkzMSwiZXhwIjoxNjc3ODgyOTkxfQ.EK3xHLT1W97dQyqB2atJCFncAuDsUxbFx_dAipbocCs
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZkZWE2MGNiLTc2NzYtNDAzYS05MDE1LTIyNjY0ODgxYjg1YSIsImlhdCI6MTY3ODAwMDMzNSwiZXhwIjoxNjc4MDAzOTM1fQ.hcym5t1KOKAxxXKbKRnphqY4UBDs1ucvzC3t9CP6FD4
 
 POST {{URL}}/auth/refresh
 Content-Type: application/json
@@ -34,9 +34,10 @@ Content-Type: application/json
 
 ###
 POST {{URL}}/auth/logout
-Content-Type: application/json
+Cookie: Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZkZWE2MGNiLTc2NzYtNDAzYS05MDE1LTIyNjY0ODgxYjg1YSIsImlhdCI6MTY3Nzk5ODcyOSwiZXhwIjoxNjc4MDAyMzI5fQ.x3tycJmNH3AeWnnISQSNpW0yauGs0tRIBjvbvOaJhdM; Max-Age=60; Path=/; Expires=Sun, 05 Mar 2023 06:46:29 GMT; HttpOnly; Secure; SameSite=Strict
+# Content-Type: application/json
 
-{
-  "token": "{{TOKEN}}"
-}
+# {
+#   "token": "{{TOKEN}}"
+# }
 
