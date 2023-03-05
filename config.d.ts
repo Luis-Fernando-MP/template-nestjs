@@ -12,6 +12,12 @@ declare global {
 			DATABASE_SSL: string
 
 			JWT_SECRET: string
+			COOKIE_SECRET: string
+
+			GOOGLE_CLIENT_ID: string
+			GOOGLE_CLIENT_SECRET: string
+			GOOGLE_CALLBACK_URL: string
+			GOOGLE_CLIENT_CALLBACK: string
 		}
 	}
 }

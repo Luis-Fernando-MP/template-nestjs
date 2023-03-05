@@ -10,7 +10,14 @@ const env = {
 	DATABASE_TYPE: process.env.DATABASE_TYPE,
 	DATABASE_USERNAME: process.env.DATABASE_USERNAME,
 	DATABASE_SSL: process.env.DATABASE_SSL != 'false',
-	JWT_SECRET: process.env.JWT_SECRET
+	JWT_SECRET: process.env.JWT_SECRET,
+	COOKIE_SECRET: process.env.COOKIE_SECRET,
+	GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+	GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+	GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL,
+	GOOGLE_CLIENT_CALLBACK: process.env.GOOGLE_CLIENT_CALLBACK
 }
+
+export const COOKIE_KEY = 'Authorization'
 
 export default env

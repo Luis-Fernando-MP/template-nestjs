@@ -1,5 +1,6 @@
 enum strategies {
-	JWT = 'jwt'
+	JWT = 'jwt',
+	GOOGLE = 'google'
 }
 
 export default strategies

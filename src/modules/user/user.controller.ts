@@ -12,7 +12,8 @@ class UserController {
 
 	@PublicRoute()
 	@Get()
-	protected getAll() {
+	protected getAll(@UserRequest() userData: UserEntity) {
+		return userData
 		return this.userService.getAllUsers()
 	}
 
