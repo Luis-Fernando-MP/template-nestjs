@@ -1,6 +1,7 @@
 declare global {
 	namespace NodeJS {
 		interface ProcessEnv {
+			CLIENT_CALLBACK: string
 			PORT: string
 
 			DATABASE_TYPE: string
@@ -17,7 +18,6 @@ declare global {
 			GOOGLE_CLIENT_ID: string
 			GOOGLE_CLIENT_SECRET: string
 			GOOGLE_CALLBACK_URL: string
-			GOOGLE_CLIENT_CALLBACK: string
 		}
 	}
 }
