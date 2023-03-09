@@ -19,7 +19,7 @@ class AuthController {
 
 	@Get('google')
 	@UseGuards(GoogleAuthGuard)
-	protected async auth() {}
+	protected async authGoogle() {}
 
 	@Get('google/redirect')
 	@UseGuards(GoogleAuthGuard)
