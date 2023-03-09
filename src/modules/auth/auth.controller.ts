@@ -1,7 +1,9 @@
 import RegisterAuthDto from './dto/registerAuth.dto'
 import OAuthLayout from '~/utils/oauth.layout'
 import LoginAuthDto from './dto/loginAuth.dto'
+import IOauthPayload from './types/oauthPayload.type'
 import GoogleAuthGuard from './guards/google.guard'
+import GithubAuthGuard from './guards/github.guard'
 import geTokenAuthDto from './dto/geTokenAuth.dto'
 import { UserRequest } from './decorators/user-request.decorator'
 import { standardCookie } from '~/utils/standardCookie'
@@ -17,11 +19,25 @@ class AuthController {
 
 	@Get('google')
 	@UseGuards(GoogleAuthGuard)
-	async auth() {}
+	protected async auth() {}
 
 	@Get('google/redirect')
 	@UseGuards(GoogleAuthGuard)
-	async googleRedirect(@UserRequest() user, @Res() res: Response) {
+	protected async googleRedirect(@UserRequest() user: IOauthPayload, @Res() res: Response) {
+		return this.oauthCallback(user, res)
+	}
+
+	@Get('github')
+	@UseGuards(GithubAuthGuard)
+	protected async authGithub() {}
+
+	@Get('github/redirect')
+	@UseGuards(GithubAuthGuard)
+	protected async githubRedirect(@UserRequest() user: IOauthPayload, @Res() res: Response) {
+		return this.oauthCallback(user, res)
+	}
+
+	protected async oauthCallback(user: IOauthPayload, res: Response) {
 		const { token } = await this.authService.loginOauth(user)
 		standardCookie({ res, value: token })
 		res.status(200).send(OAuthLayout(token))
