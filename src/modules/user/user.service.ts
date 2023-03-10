@@ -5,6 +5,9 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Injectable } from '@nestjs/common/decorators'
 import { compareSync } from 'bcryptjs'
 import { BadRequestException, HttpException, HttpStatus, NotFoundException } from '@nestjs/common'
+import { File } from 'multer'
+import { env } from 'process'
+import { multerRemove, multerSave } from '~/utils/multer.options'
 
 @Injectable()
 class UserService {
@@ -16,14 +19,22 @@ class UserService {
 		return this.userRepository.find()
 	}
 
-	public async createUser(createUserDto: CreateUserDto) {
+	public async createUser(createUserDto: CreateUserDto, photo: File) {
 		const { email, name } = createUserDto
 		const existUser = await this.userRepository.findOne({ where: [{ email }, { name }] })
 		if (existUser) throw new HttpException('User credentials already exist', HttpStatus.CONFLICT)
+		const photoSaved = multerSave(photo)
 		const createUser = this.userRepository.create(createUserDto)
+		if (photoSaved) {
+			const photoUrl = `${env.DOMAIN_API}/api/images/${photoSaved.fileName}`
+			createUser.photo = photoUrl
+		}
 		const isCreated = await createUser.save()
-		if (!isCreated) throw new BadRequestException('Failed to create user')
-		return { name, email }
+		if (!isCreated) {
+			multerRemove({ fileName: photoSaved.fileName })
+			throw new BadRequestException('Failed to create user')
+		}
+		return { name, email, photo: isCreated.photo }
 	}
 
 	public async validatePasswordUser(email: string, password: string) {

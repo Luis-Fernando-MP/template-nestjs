@@ -2,6 +2,7 @@ declare global {
 	namespace NodeJS {
 		interface ProcessEnv {
 			CLIENT_CALLBACK: string
+			DOMAIN_API: string
 			PORT: string
 
 			DATABASE_TYPE: string
@@ -24,6 +25,10 @@ declare global {
 			GITHUB_CALLBACK_URL: string
 		}
 	}
+}
+
+declare module 'multer' {
+	type File = Express.Multer.File
 }
 
 export {}

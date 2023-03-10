@@ -1,5 +1,6 @@
 import RegisterAuthDto from './dto/registerAuth.dto'
 import OAuthLayout from '~/utils/oauth.layout'
+import multerOptions from '~/utils/multer.options'
 import LoginAuthDto from './dto/loginAuth.dto'
 import IOauthPayload from './types/oauthPayload.type'
 import GoogleAuthGuard from './guards/google.guard'
@@ -9,8 +10,11 @@ import { UserRequest } from './decorators/user-request.decorator'
 import { standardCookie } from '~/utils/standardCookie'
 import { ResponseStep } from './decorators/responseStep.decorator'
 import { Response } from 'express'
+import { FileInterceptor } from '@nestjs/platform-express'
+import { File } from 'multer'
 import { COOKIE_KEY } from '~/Utils/config'
-import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common'
+import { Controller, UseGuards, UseInterceptors } from '@nestjs/common'
+import { Body, Get, Post, Res, UploadedFile, ValidationPipe } from '@nestjs/common'
 import { AuthService } from './auth.service'
 
 @Controller('auth')
@@ -45,8 +49,12 @@ class AuthController {
 	}
 
 	@Post('register')
-	protected register(@Body() createAuthDto: RegisterAuthDto) {
-		return this.authService.register(createAuthDto)
+	@UseInterceptors(FileInterceptor('photo', multerOptions))
+	protected async register(
+		@Body(new ValidationPipe()) createAuthDto: RegisterAuthDto,
+		@UploadedFile() photo: File
+	) {
+		return this.authService.register(createAuthDto, photo)
 	}
 
 	@Post('login')

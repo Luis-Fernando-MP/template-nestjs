@@ -16,11 +16,12 @@ class GithubStrategy extends PassportStrategy(Strategy, strategies.GITHUB) {
 		})
 	}
 
-	async validate(_, __, { displayName, username }: Profile) {
+	async validate(_, __, { displayName, username, photos }: Profile) {
 		const user: IOauthPayload = {
 			provider: strategies.GITHUB,
 			email: displayName,
-			name: username
+			name: username,
+			photo: photos[0].value
 		}
 		return user
 	}

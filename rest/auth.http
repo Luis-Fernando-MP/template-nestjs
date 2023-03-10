@@ -34,10 +34,32 @@ Content-Type: application/json
 
 ###
 POST {{URL}}/auth/logout
-Cookie: Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZkZWE2MGNiLTc2NzYtNDAzYS05MDE1LTIyNjY0ODgxYjg1YSIsImlhdCI6MTY3Nzk5ODcyOSwiZXhwIjoxNjc4MDAyMzI5fQ.x3tycJmNH3AeWnnISQSNpW0yauGs0tRIBjvbvOaJhdM; Max-Age=60; Path=/; Expires=Sun, 05 Mar 2023 06:46:29 GMT; HttpOnly; Secure; SameSite=Strict
-# Content-Type: application/json
+Content-Type: application/json
 
-# {
-#   "token": "{{TOKEN}}"
-# }
+{
+  "token": "{{TOKEN}}"
+}
 
+###
+POST {{URL}}/auth/register
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="email"
+
+user@test.com
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="password"
+
+Aa1#User
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+User Test
+# ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="photo"; filename="example.png"
+Content-Type: image/png
+
+< ./example.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
