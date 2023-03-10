@@ -16,12 +16,13 @@ class GoogleStrategy extends PassportStrategy(Strategy, strategies.GOOGLE) {
 		})
 	}
 
-	async validate(_, __, { name, emails }: Profile, done: VerifyCallback) {
+	async validate(_, __, { name, emails, photos }: Profile, done: VerifyCallback) {
 		const userName = `${name.givenName} ${name.familyName}`.replace('undefined', '')
 		const user: IOauthPayload = {
 			provider: strategies.GOOGLE,
 			email: emails[0].value,
-			name: userName
+			name: userName,
+			photo: photos[0].value
 		}
 		done(null, user)
 	}
