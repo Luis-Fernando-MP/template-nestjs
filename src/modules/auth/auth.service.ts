@@ -10,6 +10,7 @@ import { Repository } from 'typeorm'
 import { JwtService } from '@nestjs/jwt'
 import { InjectRepository } from '@nestjs/typeorm'
 import { HttpException, HttpStatus, NotFoundException } from '@nestjs/common'
+import { File } from 'multer'
 import { BadRequestException, Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -21,9 +22,8 @@ export class AuthService {
 		private readonly jwtService: JwtService
 	) {}
 
-	public async register(createAuthDto: RegisterAuthDto) {
-		const createdUser = await this.userService.createUser(createAuthDto)
-		if (!createdUser) throw new BadRequestException('failed to register user')
+	public async register(createAuthDto: RegisterAuthDto, photo: File) {
+		const createdUser = await this.userService.createUser(createAuthDto, photo)
 		return createdUser
 	}
 
@@ -41,13 +41,13 @@ export class AuthService {
 		return { token }
 	}
 
-	public async loginOauth({ email, name, provider }: IOauthPayload) {
+	public async loginOauth({ email, name, provider, photo }: IOauthPayload) {
 		let currentUser = await this.userRepository.findOneBy({ email })
 		if (currentUser) {
 			const userHasToken = await this.tokenRepository.findOneBy({ user: { id: currentUser.id } })
 			if (userHasToken) await this.tokenRepository.delete(userHasToken.id)
 		} else {
-			const newUser = this.userRepository.create({ email, name, provider })
+			const newUser = this.userRepository.create({ email, name, provider, photo })
 			const isUserCreated = await this.userRepository.save(newUser)
 			if (!isUserCreated) throw new BadRequestException('Failed to create user')
 			currentUser = isUserCreated

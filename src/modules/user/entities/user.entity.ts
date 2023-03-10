@@ -14,6 +14,9 @@ import { hash, genSalt } from 'bcryptjs'
 import { v4 as uuid } from 'uuid'
 import strategies from '~/modules/auth/types/strategies.enum'
 
+const TempDefaultImage =
+	'https://us.123rf.com/450wm/urfandadashov/urfandadashov1809/urfandadashov180901275/109135379-photo-not-available-vector-icon-isolated-on-transparent-background-photo-not-available-logo-concept.jpg?ver=6'
+
 @Entity('users')
 class UserEntity extends BaseEntity {
 	@PrimaryColumn('varchar', { name: 'user_id' })
@@ -33,6 +36,9 @@ class UserEntity extends BaseEntity {
 
 	@Column({ type: 'enum', enum: strategies, default: strategies.JWT })
 	provider?: string
+
+	@Column({ type: 'text', default: TempDefaultImage, nullable: true })
+	photo?: string
 
 	@CreateDateColumn({
 		type: 'timestamp',
