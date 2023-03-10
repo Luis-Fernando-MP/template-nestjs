@@ -3,6 +3,7 @@ config()
 
 const env = {
 	CLIENT_CALLBACK: process.env.CLIENT_CALLBACK,
+	DOMAIN_API: process.env.DOMAIN_API,
 	PORT: Number(process.env.PORT),
 	DATABASE_HOST: process.env.DATABASE_HOST,
 	DATABASE_NAME: process.env.DATABASE_NAME,
@@ -22,5 +23,6 @@ const env = {
 }
 
 export const COOKIE_KEY = 'Authorization'
+export const MULTER_PATH = './uploads'
 
 export default env
