@@ -13,8 +13,8 @@ import { Response } from 'express'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { File } from 'multer'
 import { COOKIE_KEY } from '~/Utils/config'
-import { Controller, UseGuards, UseInterceptors } from '@nestjs/common'
-import { Body, Get, Post, Res, UploadedFile, ValidationPipe } from '@nestjs/common'
+import { Controller, HttpException, HttpStatus, UseGuards, UseInterceptors } from '@nestjs/common'
+import { Body, Get, Post, Res, UploadedFile } from '@nestjs/common'
 import { AuthService } from './auth.service'
 
 @Controller('auth')
@@ -42,18 +42,19 @@ class AuthController {
 	}
 
 	protected async oauthCallback(user: IOauthPayload, res: Response) {
-		const { token } = await this.authService.loginOauth(user)
-		standardCookie({ res, value: token })
-		res.status(200).send(OAuthLayout(token))
-		return { msg: 'ok' }
+		try {
+			const { token } = await this.authService.loginOauth(user)
+			standardCookie({ res, value: token })
+			res.status(200).send(OAuthLayout(new HttpException(token, HttpStatus.OK)))
+			return { msg: 'ok' }
+		} catch (error) {
+			res.send(OAuthLayout(error, true))
+		}
 	}
 
 	@Post('register')
 	@UseInterceptors(FileInterceptor('photo', multerOptions))
-	protected async register(
-		@Body(new ValidationPipe()) createAuthDto: RegisterAuthDto,
-		@UploadedFile() photo: File
-	) {
+	protected async register(@Body() createAuthDto: RegisterAuthDto, @UploadedFile() photo: File) {
 		return this.authService.register(createAuthDto, photo)
 	}
 
