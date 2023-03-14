@@ -1,14 +1,7 @@
-import {
-	BaseEntity,
-	Entity,
-	PrimaryColumn,
-	BeforeInsert,
-	Column,
-	OneToOne,
-	JoinColumn
-} from 'typeorm'
 import { v4 as uuid } from 'uuid'
 import { UserEntity } from '~/modules/user/entities/user.entity'
+import { BeforeInsert, OneToOne, JoinColumn } from 'typeorm'
+import { BaseEntity, Entity, PrimaryColumn, Column } from 'typeorm'
 
 @Entity('tokens')
 class TokenEntity extends BaseEntity {

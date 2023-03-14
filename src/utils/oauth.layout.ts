@@ -1,6 +1,6 @@
 import { env } from 'process'
 
-function OAuthLayout(message: any, anyError: boolean = false) {
+function OAuthLayout(message: any, anyError = false) {
 	const textContent = anyError ? 'Could not create your account' : 'Login success'
 	return `<!DOCTYPE html>
   <html>

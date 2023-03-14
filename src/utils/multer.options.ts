@@ -43,7 +43,7 @@ export const multerRemove = ({ fileName }: { fileName: string }) => {
 }
 
 const multerOptions: Options = {
-	limits: { fileSize: 3 * 1000000 },
+	limits: { fileSize: 5 * 1000000 },
 	fileFilter
 }
 
