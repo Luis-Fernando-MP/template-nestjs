@@ -4,6 +4,7 @@ import JwtAuthStrategy from './strategies/jwtAuth.strategy'
 import GoogleStrategy from './strategies/google.strategy'
 import GithubStrategy from './strategies/github.strategy'
 import env from '~/Utils/config'
+import CloudinaryModule from '../cloudinary/cloudinary.module'
 import AuthController from './auth.controller'
 import { UserEntity } from '../user/entities/user.entity'
 import { TypeOrmModule } from '@nestjs/typeorm'
@@ -15,6 +16,7 @@ import { AuthService } from './auth.service'
 @Module({
 	imports: [
 		UserModule,
+		CloudinaryModule,
 		PassportModule,
 		TypeOrmModule.forFeature([TokenEntity, UserEntity]),
 		JwtModule.register({

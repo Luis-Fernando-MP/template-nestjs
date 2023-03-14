@@ -1,13 +1,36 @@
-
 @port = {{$dotenv PORT}}
 @URL = http://localhost:{{port}}/api
+@userId = 495f80c5-2f39-4f15-8f54-ebc0497c090f
+@userCookie = Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ5NWY4MGM1LTJmMzktNGYxNS04ZjU0LWViYzA0OTdjMDkwZiIsImlhdCI6MTY3ODc2NDMzNSwiZXhwIjoxNjc4NzY3OTM1fQ.6vF4fNPAOZiZIuQWwLb-pvmRxQuz4kb2X9lxGOF3X0k; Max-Age=60; Path=/; Expires=Mon, 13 Mar 2023 23:13:33 GMT; HttpOnly; Secure; SameSite=Strict
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ5NWY4MGM1LTJmMzktNGYxNS04ZjU0LWViYzA0OTdjMDkwZiIsImlhdCI6MTY3ODc2NDMzNSwiZXhwIjoxNjc4NzY3OTM1fQ.6vF4fNPAOZiZIuQWwLb-pvmRxQuz4kb2X9lxGOF3X0k
 
-### All-users
+###
 GET {{URL}}/user
 
-### No-public route
-@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZkZWE2MGNiLTc2NzYtNDAzYS05MDE1LTIyNjY0ODgxYjg1YSIsImlhdCI6MTY3Nzk5ODcyOSwiZXhwIjoxNjc4MDAyMzI5fQ.x3tycJmNH3AeWnnISQSNpW0yauGs0tRIBjvbvOaJhdM
+###
+GET {{URL}}/user/{{userId}}
 
-GET {{URL}}/user/no-public
+###
+DELETE {{URL}}/user
+Cookie: {{userCookie}}
 # Authorization: Bearer {{TOKEN}}
-Cookie: Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZkZWE2MGNiLTc2NzYtNDAzYS05MDE1LTIyNjY0ODgxYjg1YSIsImlhdCI6MTY3ODAwMTg0MSwiZXhwIjoxNjc4MDAxOTAxfQ.lluTJ-i0fI1vOdvC6IVFmXbVVkv2q7eMTMSOyYGgCLo; Max-Age=60; Path=/; Expires=Sun, 05 Mar 2023 07:38:21 GMT; HttpOnly; Secure; SameSite=Strict
+
+###
+PUT {{URL}}/user
+Authorization: Bearer {{TOKEN}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+update name User
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="password"
+
+Aa2#User
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="photo"; filename="example.jpg"
+Content-Type: image/jpg
+
+< ./example.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

@@ -1,8 +1,8 @@
-
 @port = {{$dotenv PORT}}
 @URL = http://localhost:{{port}}/api
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ5NWY4MGM1LTJmMzktNGYxNS04ZjU0LWViYzA0OTdjMDkwZiIsImlhdCI6MTY3ODc2MzA3NCwiZXhwIjoxNjc4NzY2Njc0fQ.RUJFZB0xE-aWKN99jS2a9_g5CXUaUxGcZkk1zLukcFo
 
-### Sing In
+###
 POST {{URL}}/auth/login
 Content-Type: application/json
 
@@ -10,8 +10,7 @@ Content-Type: application/json
   "email": "user@test.com",
   "password": "Aa1#User"
 }
-
-### Sing Up
+###
 POST {{URL}}/auth/register
 Content-Type: application/json
 
@@ -20,18 +19,13 @@ Content-Type: application/json
   "password": "Aa1#User",
   "name": "User Test"
 }
-
-
-### refresh token
-@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZkZWE2MGNiLTc2NzYtNDAzYS05MDE1LTIyNjY0ODgxYjg1YSIsImlhdCI6MTY3ODAwMDMzNSwiZXhwIjoxNjc4MDAzOTM1fQ.hcym5t1KOKAxxXKbKRnphqY4UBDs1ucvzC3t9CP6FD4
-
+###
 POST {{URL}}/auth/refresh
 Content-Type: application/json
 
 {
   "token": "{{TOKEN}}"
 }
-
 ###
 POST {{URL}}/auth/logout
 Content-Type: application/json
@@ -39,7 +33,6 @@ Content-Type: application/json
 {
   "token": "{{TOKEN}}"
 }
-
 ###
 POST {{URL}}/auth/register
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
@@ -56,10 +49,9 @@ Aa1#User
 Content-Disposition: form-data; name="name"
 
 User Test
-# ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="photo"; filename="example.png"
-Content-Type: image/png
+Content-Disposition: form-data; name="photo"; filename="example.jpg"
+Content-Type: image/jpg
 
 < ./example.jpg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--

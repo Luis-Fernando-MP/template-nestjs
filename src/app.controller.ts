@@ -1,6 +1,6 @@
-import { Controller, Get, Param, Res } from '@nestjs/common'
 import { Response } from 'express'
 import { MULTER_PATH } from './Utils/config'
+import { Controller, Get, Param, Res } from '@nestjs/common'
 
 @Controller()
 class AppController {

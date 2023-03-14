@@ -1,21 +1,13 @@
 import TokenEntity from '~/modules/auth/entities/token.entity'
-import {
-	BaseEntity,
-	BeforeInsert,
-	BeforeUpdate,
-	Column,
-	CreateDateColumn,
-	Entity,
-	OneToOne,
-	PrimaryColumn,
-	UpdateDateColumn
-} from 'typeorm'
-import { hash, genSalt } from 'bcryptjs'
-import { v4 as uuid } from 'uuid'
 import strategies from '~/modules/auth/types/strategies.enum'
+import { v4 as uuid } from 'uuid'
+import { hash, genSalt } from 'bcryptjs'
+import { BeforeInsert, BeforeUpdate, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { BaseEntity, Column, Entity, PrimaryColumn, OneToOne } from 'typeorm'
 
-const TempDefaultImage =
-	'https://us.123rf.com/450wm/urfandadashov/urfandadashov1809/urfandadashov180901275/109135379-photo-not-available-vector-icon-isolated-on-transparent-background-photo-not-available-logo-concept.jpg?ver=6'
+const defaultUserPhoto =
+	'https://res.cloudinary.com/dkbp71nof/image/upload/v1678743024/nest_test/users/xalxfg3rbhzufmm3aw0l.png'
+export const defaultUserPhotoId = 'nest_test/users/xalxfg3rbhzufmm3aw0l.png'
 
 @Entity('users')
 class UserEntity extends BaseEntity {
@@ -37,8 +29,11 @@ class UserEntity extends BaseEntity {
 	@Column({ type: 'enum', enum: strategies, default: strategies.JWT })
 	provider?: string
 
-	@Column({ type: 'text', default: TempDefaultImage, nullable: true })
+	@Column('text', { default: defaultUserPhoto, nullable: true })
 	photo?: string
+
+	@Column('varchar', { default: defaultUserPhotoId, nullable: true })
+	photo_id?: string
 
 	@CreateDateColumn({
 		type: 'timestamp',
