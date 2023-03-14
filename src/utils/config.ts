@@ -19,10 +19,15 @@ const env = {
 	GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL,
 	GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
 	GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
-	GITHUB_CALLBACK_URL: process.env.GITHUB_CALLBACK_URL
+	GITHUB_CALLBACK_URL: process.env.GITHUB_CALLBACK_URL,
+	CLOUDINARY_NAME: process.env.CLOUDINARY_NAME,
+	CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+	CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET
 }
 
-export const COOKIE_KEY = 'Authorization'
 export const MULTER_PATH = './uploads'
+export const COOKIE_KEY = 'Authorization'
+export const CLOUD_PROVIDER = 'Cloudinary'
+export const CLOUD_DIRECTORY = 'nest_test'
 
 export default env
