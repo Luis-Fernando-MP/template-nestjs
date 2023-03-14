@@ -5,12 +5,14 @@ import LoginAuthDto from './dto/loginAuth.dto'
 import ITokenPayload from './types/payload.type'
 import IOauthPayload from './types/oauthPayload.type'
 import geTokenAuthDto from './dto/geTokenAuth.dto'
+import CloudImageService from '../cloudinary/cloudinary.service'
 import { UserEntity } from '../user/entities/user.entity'
 import { Repository } from 'typeorm'
 import { JwtService } from '@nestjs/jwt'
 import { InjectRepository } from '@nestjs/typeorm'
 import { HttpException, HttpStatus, NotFoundException } from '@nestjs/common'
 import { File } from 'multer'
+import { cloudCfgUserPhoto } from '../cloudinary/cloudinary.config'
 import { BadRequestException, Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -19,7 +21,8 @@ export class AuthService {
 		@InjectRepository(TokenEntity) private readonly tokenRepository: Repository<TokenEntity>,
 		@InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
 		private readonly userService: UserService,
-		private readonly jwtService: JwtService
+		private readonly jwtService: JwtService,
+		private readonly cloudImageService: CloudImageService
 	) {}
 
 	public async register(createAuthDto: RegisterAuthDto, photo: File) {
@@ -47,7 +50,10 @@ export class AuthService {
 			const userHasToken = await this.tokenRepository.findOneBy({ user: { id: currentUser.id } })
 			if (userHasToken) await this.tokenRepository.delete(userHasToken.id)
 		} else {
-			const newUser = this.userRepository.create({ email, name, provider, photo })
+			const userPhoto = await this.cloudImageService.uploadUrlFile(photo, cloudCfgUserPhoto)
+			const { secure_url, public_id } = userPhoto
+			const dataUser = { email, name, provider, photo: secure_url, photo_id: public_id }
+			const newUser = this.userRepository.create(dataUser)
 			const isUserCreated = await this.userRepository.save(newUser)
 			if (!isUserCreated) throw new BadRequestException('Failed to create user')
 			currentUser = isUserCreated
